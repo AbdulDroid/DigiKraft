@@ -52,22 +52,30 @@ android {
 
 dependencies {
     implementation(
+            'androidx.appcompat:appcompat:1.4.2',
             'androidx.core:core-ktx:1.8.0',
+            'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0',
+            'androidx.fragment:fragment:1.5.0',
+            'androidx.cardview:cardview:1.0.0',
+            //Compose
             'androidx.compose.ui:ui:1.1.1',
             'androidx.compose.material3:material3:1.0.0-alpha14',
             "androidx.compose.ui:ui-tooling-preview:1.1.1",
-            'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0',
             'androidx.activity:activity-compose:1.6.0-alpha05',
-            'com.google.maps.android:maps-compose:2.1.0',
-            'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0',
             'androidx.activity:activity-compose:1.5.0',
+            // Compose Navigation
             'androidx.navigation:navigation-compose:2.5.0',
             'com.google.accompanist:accompanist-navigation-animation:0.23.0',
-            'androidx.fragment:fragment:1.5.0',
+            // Data (JSON) Parsing
             'com.google.code.gson:gson:2.9.0',
+            // Maps and Location
             'com.google.android.gms:play-services-maps:18.0.2',
+            'com.google.maps.android:maps-compose:2.1.0',
+            'com.google.android.gms:play-services-location:20.0.0',
+            //Dependency Injection
             "com.google.dagger:hilt-android:$hilt_version",
             'androidx.hilt:hilt-navigation-compose:1.0.0',
+            //Network
             'com.squareup.retrofit2:retrofit:2.9.0',
             'com.squareup.retrofit2:converter-gson:2.9.0',
             platform('com.squareup.okhttp3:okhttp-bom:4.10.0'),

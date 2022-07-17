@@ -15,7 +15,10 @@ class BikeStationViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<State> = MutableStateFlow(State())
-    val state: StateFlow<State> = _state
+    val state = _state.asStateFlow()
+
+    private val _shouldRequestLocation: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    val shouldRequestLocation = _shouldRequestLocation.asStateFlow()
 
     init {
         getBikeStations()
@@ -31,6 +34,10 @@ class BikeStationViewModel @Inject constructor(
                 _state.updateValue { copy(bikeStations = it) }
             }
             .launchIn(viewModelScope)
+    }
+
+    fun setShouldRequestLocation(request: Boolean) {
+        _shouldRequestLocation.value = request
     }
 
     data class State(

@@ -1,5 +1,6 @@
 package io.digikraft
 
+import android.location.Location
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,7 +9,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
@@ -19,6 +20,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.digikraft.models.fromJson
 import io.digikraft.models.toJson
+import io.digikraft.utils.getUserLocation
 import io.digikraft.view.screens.DetailsScreen
 import io.digikraft.view.screens.MainScreen
 import io.digikraft.view.theme.DigiKraftTheme
@@ -30,6 +32,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberAnimatedNavController()
+            var userLocation by remember { mutableStateOf<Location?>(null)}
+            getUserLocation {
+                userLocation = it
+            }
             DigiKraftTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
@@ -62,7 +68,7 @@ class MainActivity : ComponentActivity() {
                                     else -> null
                                 }
                             }) {
-                            MainScreen() {
+                            MainScreen(location = userLocation) {
                                 navController.navigate("details/${it.toJson()}")
                             }
                         }
@@ -72,7 +78,7 @@ class MainActivity : ComponentActivity() {
                             val dataString = it.arguments?.getString("data")
                             dataString?.let { s ->
                                 val data = s.fromJson()
-                                DetailsScreen(data = data) {
+                                DetailsScreen(userLocation = userLocation, data = data) {
                                     navController.navigateUp()
                                 }
                             }

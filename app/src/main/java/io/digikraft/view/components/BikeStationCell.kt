@@ -1,5 +1,6 @@
 package io.digikraft.view.components
 
+import android.location.Location
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -20,8 +22,11 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.digikraft.models.BikeStation
+import com.google.android.gms.maps.model.LatLng
 import io.digikraft.R
+import io.digikraft.models.BikeStation
+import io.digikraft.utils.checkLocationPermission
+import io.digikraft.utils.computeUserDistance
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,6 +34,7 @@ fun BikeStationCell(
     modifier: Modifier = Modifier,
     cornerRadius: Dp = 0.dp,
     data: BikeStation,
+    userLocation: Location?,
     onItemClick: (BikeStation) -> Unit
 ) {
     Card(
@@ -40,15 +46,19 @@ fun BikeStationCell(
         },
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
+        val context = LocalContext.current
         Column(Modifier.padding(20.dp)) {
             Text(
                 text = "${String.format("%03d", data.index)} ${data.name}",
                 style = TextStyle(color = Color.Black.copy(alpha = 0.67F), fontWeight = FontWeight.W700, fontSize = 20.sp)
             )
             Text(text = buildAnnotatedString {
-                append("600m")
-                withStyle(SpanStyle(fontWeight = FontWeight.W700)) {
-                    append("  •  ")
+                // Show user
+                if (context.checkLocationPermission()) {
+                    append(computeUserDistance(userLocation, LatLng(data.coordinates[1], data.coordinates[0])))
+                    withStyle(SpanStyle(fontWeight = FontWeight.W700)) {
+                        append("  •  ")
+                    }
                 }
                 append("Bike Station")
             }, style = TextStyle(color = Color.DarkGray, fontSize = 13.sp))
