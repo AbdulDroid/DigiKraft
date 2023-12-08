@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
                 userLocation = it
             }
             DigiKraftTheme {
-                // A surface container using the 'background' color from the theme
+                // A surface container using the "background" color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     AnimatedNavHost(navController, startDestination = "home") {
                         composable("home",enterTransition = {
