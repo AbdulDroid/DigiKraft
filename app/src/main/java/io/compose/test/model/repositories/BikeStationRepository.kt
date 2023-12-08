@@ -1,18 +1,15 @@
-package io.digikraft.model.repositories;
+package io.compose.test.model.repositories
 
-import io.digikraft.BuildConfig
-import io.digikraft.model.models.toBikeStation
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import io.compose.test.BuildConfig
+import io.compose.test.model.models.toBikeStation
+import javax.inject.Inject
+import javax.inject.Singleton
 
-import io.digikraft.model.remote.ApiService;
-import io.digikraft.model.remote.Network;
-import io.digikraft.models.BikeStation
-import kotlinx.coroutines.Dispatchers
+import io.compose.test.model.remote.ApiService
+import io.compose.test.model.remote.Network
+import io.compose.test.models.BikeStation
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.withContext
 
 @Singleton
 class BikeStationRepository @Inject constructor (

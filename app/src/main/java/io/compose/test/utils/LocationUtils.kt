@@ -1,14 +1,10 @@
-package io.digikraft.utils
+package io.compose.test.utils
 
 import android.content.Context
 import android.location.Location
-import android.util.Log
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.flow.*
 
 private lateinit var fusedLocationClient: FusedLocationProviderClient
 
