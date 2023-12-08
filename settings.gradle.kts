@@ -14,5 +14,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "DigiKraft"
+rootProject.name = "ComposeTest"
 include(":app")
